@@ -4,12 +4,16 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import configparser
 from lastfm_search.lastfm_song_search import get_lastfm_genre
+from AI_response.recommendations import get_recommendations
+from AI_response.lastfm_recommendations import get_lastfm_recommendations
 
 from AI_response.ai_reponses import get_responses
 
+# lets discord api know that bot wants messages and message content from the server
 intents = discord.Intents.default()
 intents.message_content = True
 
+# bot token from config file
 config = configparser.ConfigParser()
 config.read('config.ini')
 bot_token = config['Credentials']['DISCORD_BOT_TOKEN']
@@ -17,7 +21,6 @@ bot_token = config['Credentials']['DISCORD_BOT_TOKEN']
 bot = commands.Bot(command_prefix = '$', intents=intents)
 
 sp = spotipy.Spotify(auth_manager = SpotifyClientCredentials(client_id = config['Credentials']['SPOTIFY_CLIENT_ID'], client_secret = config['Credentials']['SPOTIFY_CLIENT_SECRET']))
-
 
 @bot.event
 async def on_read():
@@ -29,6 +32,7 @@ async def suggest_song(ctx, link):
         song_id = link.split('/track/')[1].split('?')[0]
 
         song_info = sp.track(song_id)
+        # audio_features = sp.audio_features(song_id)[0] // will experiment later to see if i can somehow manually extract audio features from different sources
 
         song_name = song_info['name']
         artist_name = song_info['artists'][0]['name']
@@ -38,6 +42,25 @@ async def suggest_song(ctx, link):
 
         gemini_reponse = await get_responses(song_name, artist_name, genres)
         await ctx.send(gemini_reponse)
+
+        similar_tracks = get_lastfm_recommendations(song_name, artist_name)
+        recommendations = '\n'.join(f"- {track}" for track in similar_tracks)
+
+        await ctx.send(recommendations)
+
+        # recommendations = await get_recommendations(
+        #     song_name,
+        #     artist_name,
+        #     genres,
+        #     {
+        #         'energy': audio_features['energy'],
+        #         'key': audio_features['key'],
+        #         'tempo': audio_features['tempo'],
+        #         'time_signature': audio_features['time_signature'],
+        #         'mode': audio_features['mode']
+        #     }
+        # )
+        # await ctx.send(recommendations)
 
     except Exception as e:
         await ctx.send(f'Error: {e}')
