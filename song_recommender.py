@@ -24,33 +24,36 @@ async def on_read():
     print(f'Logged in as {bot.user.name}')
 
 @bot.command(name = 'suggest')
-async def test(ctx):
-    await ctx.send('i am making a suggestion')
-
-@bot.command(name = 'tellme')
-async def tell_me_song(ctx, link):
+async def suggest_song(ctx, link):
     try:
-
         song_id = link.split('/track/')[1].split('?')[0]
 
         song_info = sp.track(song_id)
 
         song_name = song_info['name']
         artist_name = song_info['artists'][0]['name']
-        
-        results = sp.search(q = f'track:{song_name} artist:{artist_name}', type = 'track')
-        if results['tracks']['items']:
-            artist_id = results['tracks']['items'][0]['artists'][0]['id']
-            artist_info = sp.artist(artist_id)
-            genres = artist_info['genres']
+        genres = get_lastfm_genre(song_name, artist_name)
 
-        if not genres:
-            genres = get_lastfm_genre(song_name, artist_name)
-
-        await ctx.send("Let's see what this song's about...")
+        await ctx.send(f"Song: {song_name}\nArtist: {artist_name}\nGenres: {genres}")
 
         gemini_reponse = await get_responses(song_name, artist_name, genres)
         await ctx.send(gemini_reponse)
+
+    except Exception as e:
+        await ctx.send(f'Error: {e}')
+
+@bot.command(name = 'songinfo')
+async def song_info(ctx, link):
+    try:
+        song_id = link.split('/track/')[1].split('?')[0]
+
+        song_info = sp.track(song_id)
+
+        song_name = song_info['name']
+        artist_name = song_info['artists'][0]['name']
+        genres = get_lastfm_genre(song_name, artist_name)
+
+        await ctx.send(f'Song: {song_name}\nArtist: {artist_name}\nGenres: {genres}')
 
     except Exception as e:
         await ctx.send(f'Error: {e}')
