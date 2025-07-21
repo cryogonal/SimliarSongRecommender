@@ -11,8 +11,9 @@ async def get_responses(song_name, artist_name, genres):
     try:
         response = client.models.generate_content(
             model = "gemini-2.5-pro",
-            contents = (f"Please give your thoughts on {song_name} by {artist_name}, as well as the {genres} and limit it to under 80 words. + \
-                        Make it sound natural. Then, give a creative way of saying 'Here are 5 other songs that could vit this vibe'")
+            contents = (f"Please give your thoughts on {song_name} by {artist_name}, as well as the {genres} and limit it to under 80 words."
+                        "Make it sound natural. Also, if you do not know what EP the song comes from, don't talk about it."
+                        "If you do, go for it. Then, give a creative way of saying 'Here are 5 other songs that could fit this vibe'")
         )
         return response.text
     

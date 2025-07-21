@@ -1,6 +1,6 @@
 # Similar Song Recommender
 
-Hello, and this is the Simliar Song Recommender Discord bot! This Discord bot combines Google's Gemini 2.5 Pro model and machine learning to accurately recommend you songs that you could add to your playlist!
+Hello, and this is the Simliar Song Recommender Discord bot! This Discord bot utilizes Google's AI Gemini 2.5 Pro to accurately recommend you songs that you could add to your playlist!
 
 ## How do you use it?
 
@@ -17,7 +17,13 @@ Hello, and this is the Simliar Song Recommender Discord bot! This Discord bot co
     - Go to Google's AI Studio [here](https://aistudio.google.com/prompts/new_chat).
     - Obtain your Gemini API key and copy it down.
 
-4. **Create your configuration file:**
+4. **Configure your Last.fm Key:**
+    - Go to Last.fm's website and create an account [here](https://www.last.fm/join)
+    - Verify your email
+    - Go to Last.fm's api applications link [here](https://www.last.fm/api/accounts) and create a new API
+    - Obtain both the API key and secret key and copy them down
+
+5. **Create your configuration file:**
     - Create a file called "config.ini"
     - Paste your keys into the file in this format:
 ```plaintext
@@ -27,10 +33,10 @@ SPOTIFY_CLIENT_ID = spotify-client-id
 ...
 ```
 
-5. will be added :D
+6. **will be added :D**
 
-6. **Run your bot:**
+7. **Run your bot:**
     - Open song_recommender.py
     - Run the script to start getting new songs to put into your playlists!
 
-Please use this bot however you'd like and tailor it to your personal experience! If you have any questions, feedback or suggestions, please feel free to reach out.
+Please use this bot however you'd like and tailor it to your personal experience! If you have any questions, feedback, or suggestions, please feel free to reach out.

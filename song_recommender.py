@@ -3,6 +3,7 @@ from discord.ext import commands
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import configparser
+from lastfm_search.lastfm_song_search import get_lastfm_genre
 
 from AI_response.ai_reponses import get_responses
 
@@ -43,7 +44,10 @@ async def tell_me_song(ctx, link):
             artist_info = sp.artist(artist_id)
             genres = artist_info['genres']
 
-        await ctx.send("Let me see what this song's about...")
+        if not genres:
+            genres = get_lastfm_genre(song_name, artist_name)
+
+        await ctx.send("Let's see what this song's about...")
 
         gemini_reponse = await get_responses(song_name, artist_name, genres)
         await ctx.send(gemini_reponse)
@@ -52,4 +56,3 @@ async def tell_me_song(ctx, link):
         await ctx.send(f'Error: {e}')
         
 bot.run(bot_token)
-
