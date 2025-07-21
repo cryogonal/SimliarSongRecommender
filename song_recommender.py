@@ -34,7 +34,7 @@ async def suggest_song(ctx, link):
         artist_name = song_info['artists'][0]['name']
         genres = get_lastfm_genre(song_name, artist_name)
 
-        await ctx.send(f"Song: {song_name}\nArtist: {artist_name}\nGenres: {genres}")
+        await ctx.send("Let's see what this song's about...")
 
         gemini_reponse = await get_responses(song_name, artist_name, genres)
         await ctx.send(gemini_reponse)
