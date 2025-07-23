@@ -26,6 +26,7 @@ Hello, and this is the Simliar Song Recommender Discord bot! This Discord bot ut
 5. **Create your configuration file:**
     - Create a file called "config.ini"
     - Paste your keys into the file in this format:
+    
 ```plaintext
 [Credentials]
 DISCORD_BOT_TOKEN = discord-bot-token
@@ -33,10 +34,9 @@ SPOTIFY_CLIENT_ID = spotify-client-id
 ...
 ```
 
-6. **will be added :D**
-
-7. **Run your bot:**
+6. **Run your bot:**
     - Open song_recommender.py
+    - Choose between using Gemini's recommendations or Last.fm's get_similar call (note that Gemini will take a little bit to send a message due to using Pro instead of Flash)
     - Run the script to start getting new songs to put into your playlists!
 
 Please use this bot however you'd like and tailor it to your personal experience! If you have any questions, feedback, or suggestions, please feel free to reach out.
