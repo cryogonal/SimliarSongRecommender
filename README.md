@@ -40,4 +40,5 @@ SPOTIFY_CLIENT_ID = spotify-client-id
     - Run the script to start getting new songs to put into your playlists!
 
 (Reminder that the genres of these songs are subjective and could lead to inaccurate results.)
+
 Please use this bot however you'd like and tailor it to your personal experience! If you have any questions, feedback, or suggestions, please feel free to reach out.
