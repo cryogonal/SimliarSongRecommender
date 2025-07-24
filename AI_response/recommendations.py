@@ -28,7 +28,7 @@ async def get_recommendations(song_name, artist_name, genres):
             recommended_songs = response.text.split('\n')
             song_with_links = []
 
-            for song in recommended_songs:
+            for song in recommended_songs: # getting spotify links to every recommendations from gemini
                 song = song.lstrip('- ')
 
                 if ' by ' in song:
@@ -45,13 +45,13 @@ async def get_recommendations(song_name, artist_name, genres):
 
                             song_with_links.append(f"- {song_title} by {song_artist} ({spotify_link})")
                         else:
-                            song_with_links.append(f"- {song_title} by {song_artist} (No Spotify link found)")
+                            song_with_links.append(f"- {song_title} by {song_artist} (No Spotify link found)") # if song isn't on spotify
                     except Exception as e:
                         print(f"Spotify Error: {e}")
-                        song_with_links.append(f"- {song_title} by {song_artist} (Error parsing of searching)")
+                        song_with_links.append(f"- {song_title} by {song_artist} (Error parsing of searching)") # if problem occurred while searching
                 else:
                     print(f"Bad format: {song}")
-                    song_with_links.append(f" - {song} (Invalid format)")
+                    song_with_links.append(f" - {song} (Invalid format)") # if gemini somehow doesn't format it correctly
 
             return '\n'.join(song_with_links)
         except Exception as e:

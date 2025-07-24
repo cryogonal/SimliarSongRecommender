@@ -29,21 +29,21 @@ async def on_read():
 @bot.command(name = 'suggest')
 async def suggest_song(ctx, link):
     try:
-        song_id = link.split('/track/')[1].split('?')[0]
+        song_id = link.split('/track/')[1].split('?')[0] # splits spotify link to get id
 
         song_info = sp.track(song_id)
         
 
         song_name = song_info['name']
         artist_name = song_info['artists'][0]['name']
-        genres = get_lastfm_genre(song_name, artist_name)
+        genres = get_lastfm_genre(song_name, artist_name) # uses lastfm to get genres
 
         await ctx.send("Let's see what this song's about...")
 
         gemini_reponse = await get_responses(song_name, artist_name, genres)
         await ctx.send(gemini_reponse)
 
-        similar_tracks = await get_recommendations(song_name, artist_name, genres)
+        similar_tracks = await get_recommendations(song_name, artist_name, genres) # comment this out and uncomment the next line to use lastfm
         # similar_tracks_2 = get_lastfm_recommendations(song_name, artist_name)
         # recommendations = '\n'.join(f"- {track}" for track in similar_tracks_2)
 
@@ -52,7 +52,7 @@ async def suggest_song(ctx, link):
     except Exception as e:
         await ctx.send(f'Error: {e}')
 
-@bot.command(name = 'songinfo')
+@bot.command(name = 'songinfo') # just to get simple song info lol
 async def song_info(ctx, link):
     try:
         song_id = link.split('/track/')[1].split('?')[0]

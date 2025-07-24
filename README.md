@@ -36,7 +36,8 @@ SPOTIFY_CLIENT_ID = spotify-client-id
 
 6. **Run your bot:**
     - Open song_recommender.py
-    - Choose between using Gemini's recommendations or Last.fm's get_similar call (note that Gemini will take a little bit to send a message due to using Pro instead of Flash)
+    - Choose between using Gemini's recommendations or Last.fm's get_similar call (note that Gemini will take a little bit to send a message due to the use of Gemini Pro)
     - Run the script to start getting new songs to put into your playlists!
 
+(Reminder that the genres of these songs are subjective and could lead to inaccurate results.)
 Please use this bot however you'd like and tailor it to your personal experience! If you have any questions, feedback, or suggestions, please feel free to reach out.
