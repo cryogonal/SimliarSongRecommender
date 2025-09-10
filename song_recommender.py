@@ -52,6 +52,24 @@ async def suggest_song(ctx, link):
     except Exception as e:
         await ctx.send(f'Error: {e}')
 
+@bot.command(name = 'onlysuggest') # basically just gets rid of the gemini response and only gives recommendations
+async def only_suggest_song(ctx, link):
+    try:
+        await ctx.send("Sending suggestions: ")
+        song_id = link.split('/track/')[1].split('?')[0] 
+
+        song_info = sp.track(song_id)
+        
+
+        song_name = song_info['name']
+        artist_name = song_info['artists'][0]['name']
+        genres = get_lastfm_genre(song_name, artist_name) 
+        similar_tracks = await get_recommendations(song_name, artist_name, genres)
+        await ctx.send(similar_tracks)
+
+    except Exception as e:
+        await ctx.send(f'Error: {e}')
+
 @bot.command(name = 'songinfo') # just to get simple song info lol
 async def song_info(ctx, link):
     try:
